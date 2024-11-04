@@ -378,14 +378,52 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
+
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = {
+              ['<c-d>'] = function(prompt_bufnr)
+                local actions = require 'telescope.actions'
+                local action_state = require 'telescope.actions.state'
+                local builtin = require 'telescope.builtin'
+
+                local selection = action_state.get_selected_entry()
+                if selection == nil then
+                  print 'No selection'
+                  return
+                end
+
+                -- Save the current buffer number and selection row
+                local buffer_id = selection.bufnr
+                local buffer_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buffer_id), ':t') -- Get just the filename
+                local cursor_row = action_state.get_current_picker(prompt_bufnr):get_selection_row()
+
+                if vim.api.nvim_buf_get_option(buffer_id, 'modified') then
+                  vim.ui.select({ 'Yes', 'No' }, { prompt = 'File "' .. buffer_name .. '" has unsaved changes. Force delete? (y/n)' }, function(choice)
+                    if choice == 'Yes' then
+                      vim.cmd('bd! ' .. buffer_id)
+                    end
+                    builtin.buffers()
+                  end)
+                else
+                  actions.close(prompt_bufnr)
+                  vim.cmd('bd! ' .. buffer_id)
+
+                  builtin.buffers()
+                end
+
+                -- Set the cursor back to the saved position
+                vim.defer_fn(function()
+                  local picker = action_state.get_current_picker(vim.api.nvim_get_current_buf())
+                  picker:set_selection(cursor_row)
+                end, 15)
+              end,
+            },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -467,6 +505,7 @@ require('lazy').setup({
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
+
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -953,16 +992,29 @@ require('lazy').setup({
   },
 })
 
+-- vim.g.rustaceanvim = {
+--   server = {
+--     cmd = function()
+--       local mason_registry = require 'mason-registry'
+--       local ra_binary = mason_registry.is_installed 'rust-analyzer'
+--           -- This may need to be tweaked, depending on the operating system.
+--           and mason_registry.get_package('rust-analyzer'):get_install_path() .. '/rust-analyzer'
+--         or 'rust-analyzer'
+--       return { ra_binary } -- You can add args to the list, such as '--log-file'
+--     end,
+--   },
+-- }
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 eti
 
 -- My changes
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.fn.chdir 'C:/Users/antho/OneDrive/Code/WASM/Engine Programs/Particle-Physics-Sim' -- Replace with your desired folder path
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     vim.fn.chdir 'C:/Users/antho/OneDrive/Code/WASM/Engine Programs/Particle-Physics-Sim' -- Replace with your desired folder path
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -1050,4 +1102,7 @@ function MyKeymaps()
 
   --git
   vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>LazyGit<CR>', { noremap = true, silent = true })
+
+  --oil
+  vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 end
