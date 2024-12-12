@@ -424,7 +424,6 @@ require('lazy').setup({
             },
           },
         },
-        -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -453,6 +452,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          layout_config = {
+            width = 0.5, -- Adjust this to your preference
+            height = 0.5, -- Adjust this to your preference
+          },
           winblend = 10,
           previewer = false,
         })
