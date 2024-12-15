@@ -1026,6 +1026,9 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
+-- vim.on_key(function(key)
+--   print('Key pressed: ' .. vim.fn.keytrans(key))
+-- end, vim.api.nvim_create_namespace 'keylogger')
 -- -- Function to toggle terminal or open if none exists
 function ToggleTerminal()
   local current_tab = vim.api.nvim_get_current_tabpage()
@@ -1066,10 +1069,16 @@ end
 
 function MyKeymaps()
   -- Ctrl + ` from VSCode
-  vim.api.nvim_set_keymap('n', '<C-A-t>', ':lua ToggleTerminal()<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('i', '<C-A-t>', '<Esc>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('t', '<C-A-t>', '<C-\\><C-n>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
-
+  if vim.fn.has 'mac' == 1 then
+    -- Mac-specific key bindings
+    vim.api.nvim_set_keymap('n', '<M-D-t>', ':lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('i', '<M-D-t>', '<Esc>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('t', '<M-D-t>', '<C-\\><C-n>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+  else
+    vim.api.nvim_set_keymap('n', '<C-A-t>', ':lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('i', '<C-A-t>', '<Esc>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('t', '<C-A-t>', '<C-\\><C-n>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
+  end
   -- Ctrl + / from every other IDE. why tf are we pressing gc and gcc for this?
   vim.api.nvim_set_keymap('i', '<C-_>', '<Esc><Cmd>Commentary<CR>a', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('v', '<C-_>', "<Cmd>'<,'>Commentary<CR><Esc>a", { noremap = true, silent = true })
