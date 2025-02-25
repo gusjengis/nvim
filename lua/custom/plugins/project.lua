@@ -3,6 +3,7 @@ return {
   opts = {
     projects = { -- define project roots
       'C:/Users/antho/Documents/Code/mosaic/*',
+      'C:/Users/antho/OneDrive/Code/WASM/Engine Programs/*',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
