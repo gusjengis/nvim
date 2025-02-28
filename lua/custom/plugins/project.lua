@@ -4,6 +4,7 @@ return {
     projects = { -- define project roots
       'C:/Users/antho/Documents/Code/mosaic/*',
       'C:/Users/antho/OneDrive/Code/WASM/Engine Programs/*',
+      '/Users/anthonygreen/Documents/Code/*',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
