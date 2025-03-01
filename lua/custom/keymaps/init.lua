@@ -50,6 +50,7 @@ function M.MyKeymaps()
 
   -- project search
   vim.api.nvim_set_keymap('n', '<leader>sp', '<Cmd>NeovimProjectDiscover<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
+  vim.api.nvim_set_keymap('n', '<leader>tz', '<Cmd>ZenMode<CR>', { noremap = true, silent = true, desc = '[T]oggle [Z]en Mode' })
 
   --oil
   vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })

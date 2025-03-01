@@ -2,8 +2,9 @@ return {
   'coffebar/neovim-project',
   opts = {
     projects = { -- define project roots
-      'C:/Users/antho/Documents/Code/mosaic/*',
-      'C:/Users/antho/OneDrive/Code/WASM/Engine Programs/*',
+      'C:/Users/antho/Documents/Code/*',
+      'C:/Users/antho/AndroidStudioProjects/*',
+      'C:/Users/antho/AppData/Local/nvim',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
