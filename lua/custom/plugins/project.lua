@@ -3,6 +3,7 @@ return {
   opts = {
     projects = { -- define project roots
       'C:/Users/antho/Documents/Code/*',
+      '/Users/anthonygreen/Documents/Code/*',
       'C:/Users/antho/AndroidStudioProjects/*',
       'C:/Users/antho/AppData/Local/nvim',
     },
