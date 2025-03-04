@@ -17,8 +17,8 @@ function M.MyKeymaps()
   vim.api.nvim_set_keymap('v', '<C-_>', "<Cmd>'<,'>Commentary<CR><Esc>a", { noremap = true, silent = true })
 
   -- Ctrl + S from every other program ever. Again, why tf do I have to hit Esc + : + w + Enter when I could just hit Ctrl + S? Ctrl + S isn't even used in insert mode, so fucking stupid.
-  vim.api.nvim_set_keymap('i', '<C-s>', '<Esc><Cmd>w<CR>a', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('i', '<C-s>', '<Esc><Cmd>w!<CR>a', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>w!<CR>', { noremap = true, silent = true })
 
   -- Restoring the normal function of shift in insert mode
   vim.api.nvim_set_keymap('i', '<S-Left>', '<Esc>v', { noremap = true, silent = true })

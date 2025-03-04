@@ -7,6 +7,8 @@ return {
       'C:/Users/antho/AppData/Local/nvim',
       '/Users/anthonygreen/Documents/Code/*',
       '~/.config/nvim',
+      '/etc/nixos/',
+      '~/Documents/Code/*',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
