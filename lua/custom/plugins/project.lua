@@ -7,9 +7,8 @@ return {
       'C:/Users/antho/AppData/Local/nvim',
       '/Users/anthonygreen/Documents/Code/*',
       '~/.config/nvim',
-      '~/.config/home-manager',
       '~/.config/hypr',
-      '/etc/nixos/',
+      '~/.dotfiles',
       '~/Documents/Code/*',
     },
     picker = {
