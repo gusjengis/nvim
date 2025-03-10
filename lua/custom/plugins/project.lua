@@ -10,6 +10,7 @@ return {
       '~/.config/hypr',
       '~/.dotfiles',
       '~/Documents/Code/*',
+      '~/Documents/Obsidian/*',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
