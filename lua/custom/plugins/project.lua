@@ -14,6 +14,7 @@ return {
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
+      preview = true,
     },
   },
   init = function()
