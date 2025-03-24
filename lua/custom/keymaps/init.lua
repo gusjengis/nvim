@@ -45,7 +45,13 @@ function M.MyKeymaps()
   vim.api.nvim_set_keymap('v', '<S-Up>', 'k', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('v', '<S-Down>', 'j', { noremap = true, silent = true })
 
-  --git
+  -- window navigation with Ctrl + arrow keys
+  vim.api.nvim_set_keymap('n', '<A-Left>', '<C-w>h', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<A-Right>', '<C-w>l', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<A-Up>', '<C-w>k', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', '<A-Down>', '<C-w>j', { noremap = true, silent = true }) -- git
+
+  -- git
   vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>LazyGit<CR>', { noremap = true, silent = true })
 
   -- project search
