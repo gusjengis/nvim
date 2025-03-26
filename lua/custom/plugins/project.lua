@@ -7,14 +7,13 @@ return {
       'C:/Users/antho/AppData/Local/nvim',
       '/Users/anthonygreen/Documents/Code/*',
       '~/.config/nvim',
-      '~/.config/hypr',
       '~/.dotfiles',
       '~/Documents/Code/*',
       '~/Documents/Obsidian/*',
     },
     picker = {
       type = 'telescope', -- or "fzf-lua"
-      preview = true,
+      preview = { enabled = true, git_status = true, show_hidden = true },
     },
   },
   init = function()

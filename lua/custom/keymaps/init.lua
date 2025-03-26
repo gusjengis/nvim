@@ -55,7 +55,15 @@ function M.MyKeymaps()
   vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>LazyGit<CR>', { noremap = true, silent = true })
 
   -- project search
-  vim.api.nvim_set_keymap('n', '<leader>sp', '<Cmd>NeovimProjectDiscover<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
+  vim.api.nvim_set_keymap(
+    'n',
+    '<leader>sp',
+    '<Cmd>NeovimProjectDiscover alphabetical_name<CR>',
+    { noremap = true, silent = true, desc = '[S]earch [P]rojects' }
+  )
+  -- colorscheme search
+  vim.api.nvim_set_keymap('n', '<leader>sc', '<Cmd>Telescope colorscheme<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
+  -- toggle zen
   vim.api.nvim_set_keymap('n', '<leader>tz', '<Cmd>ZenMode<CR>', { noremap = true, silent = true, desc = '[T]oggle [Z]en Mode' })
 
   --oil
