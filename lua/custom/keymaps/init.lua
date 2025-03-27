@@ -65,9 +65,29 @@ function M.MyKeymaps()
   vim.api.nvim_set_keymap('n', '<leader>sc', '<Cmd>Telescope colorscheme<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
   -- toggle zen
   vim.api.nvim_set_keymap('n', '<leader>tz', '<Cmd>ZenMode<CR>', { noremap = true, silent = true, desc = '[T]oggle [Z]en Mode' })
+  -- toggle diffview
+  vim.api.nvim_set_keymap('n', '<leader>td', ':lua ToggleDiffview()<CR>', { noremap = true, silent = true, desc = '[T]oggle [D]iffview' })
 
   --oil
   vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+end
+
+function ToggleDiffview()
+  -- Check if Diffview is open by looking for a buffer with filetype 'DiffviewFiles'
+  local diffview_open = false
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, 'filetype') == 'DiffviewFiles' then
+      diffview_open = true
+      break
+    end
+  end
+
+  -- Toggle based on current state
+  if diffview_open then
+    vim.cmd 'DiffviewClose'
+  else
+    vim.cmd 'DiffviewOpen'
+  end
 end
 
 function M.DeleteBuffer(prompt_bufnr)

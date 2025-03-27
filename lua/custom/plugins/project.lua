@@ -12,7 +12,7 @@ return {
       '~/Documents/Obsidian/*',
     },
     picker = {
-      type = 'telescope', -- or "fzf-lua"
+      type = 'telescope',
       preview = { enabled = true, git_status = true, show_hidden = true },
     },
   },
