@@ -286,7 +286,9 @@ require('lazy').setup {
       require('mason').setup()
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'rust-analyzer',
+        'nil',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -334,6 +336,7 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
         rust = { 'rustfmt' },
+        nix = { 'nixfmt' },
       },
     },
   },
