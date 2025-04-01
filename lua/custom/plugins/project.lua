@@ -9,6 +9,8 @@ return {
       '~/.config/nvim',
       '~/.dotfiles',
       '~/Documents/Code/*',
+      '~/Documents/Code/Mosaic/*',
+      '~/Documents/Code/Plinth/*',
       '~/Documents/Obsidian/*',
     },
     picker = {
