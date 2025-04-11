@@ -15,7 +15,7 @@ return {
     },
     picker = {
       type = 'telescope',
-      preview = { enabled = true, git_status = true, show_hidden = true },
+      preview = { enabled = true, git_status = true, git_fetch = true, show_hidden = true },
     },
   },
   init = function()
