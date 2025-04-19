@@ -290,7 +290,6 @@ require('lazy').setup {
         'rust-analyzer',
         'nil',
         'wgsl-analyzer',
-        'marksman',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -465,13 +464,3 @@ require('lazy').setup {
     },
   },
 }
-
--- patch for nixos, having issues with permissions because I'm using nvim in SUDO
-if vim.fn.getenv 'SUDO_USER' ~= vim.NIL then
-  vim.api.nvim_create_autocmd('BufWritePost', {
-    callback = function()
-      local path = vim.fn.expand '%:p'
-      os.execute(('chown %s:%s %q'):format(vim.fn.getenv 'SUDO_USER', vim.fn.getenv 'SUDO_USER', path))
-    end,
-  })
-end
