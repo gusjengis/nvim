@@ -53,6 +53,10 @@ function M.MyKeymaps()
 
   -- hop
   vim.api.nvim_set_keymap('n', 'h', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', 'l', '<Cmd>HopLine<CR>', { noremap = true, silent = true })
+
+  -- command palette
+  vim.api.nvim_set_keymap('n', '<C-p>', '<Cmd>Telescope commands<CR>', { noremap = true, silent = true })
 
   -- git
   vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>LazyGit<CR>', { noremap = true, silent = true })
