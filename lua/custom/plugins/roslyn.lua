@@ -5,10 +5,12 @@ return {
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     opts = {
+      -- filewatching = 'roslyn',
+
       targets = {
         {
           name = '3DT',
-          solution = 'C:/Users/antho/Cloud Repositories/3DT/3DT.sln',
+          solution = '/home/gusjengis/Cloud Repositories/3DT/3DT.sln',
         },
       },
       -- your configuration comes here; leave empty for default settings

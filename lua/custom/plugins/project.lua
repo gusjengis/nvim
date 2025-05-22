@@ -5,6 +5,7 @@ return {
       '~/AppData/Local/nvim',
       '~/.config/nvim',
       '~/.dotfiles',
+      '~/Cloud Repositories/*',
       '~/Documents/Code/*',
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',
