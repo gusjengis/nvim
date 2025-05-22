@@ -51,6 +51,9 @@ function M.MyKeymaps()
   vim.api.nvim_set_keymap('n', '<A-Up>', '<C-w>k', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<A-Down>', '<C-w>j', { noremap = true, silent = true }) -- git
 
+  -- hop
+  vim.api.nvim_set_keymap('n', 'h', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
+
   -- git
   vim.api.nvim_set_keymap('n', '<leader>g', '<Cmd>LazyGit<CR>', { noremap = true, silent = true })
 
