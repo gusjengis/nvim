@@ -13,9 +13,9 @@ function M.MyKeymaps()
     vim.api.nvim_set_keymap('t', '<C-A-t>', '<C-\\><C-n>:lua ToggleTerminal()<CR>', { noremap = true, silent = true })
   end
   -- Ctrl + / from every other IDE. why tf are we pressing gc and gcc for this?
-  vim.api.nvim_set_keymap('n', '<C-/>', 'gcc', { noremap = false, silent = true })
-  vim.api.nvim_set_keymap('i', '<C-/>', '<Esc>gcc', { noremap = false, silent = true })
-  vim.api.nvim_set_keymap('v', '<C-/>', 'gc', { noremap = false, silent = true })
+  vim.api.nvim_set_keymap('n', '<C-c>', 'gcc', { noremap = false, silent = true })
+  vim.api.nvim_set_keymap('i', '<C-c>', '<Esc>gcc', { noremap = false, silent = true })
+  vim.api.nvim_set_keymap('v', '<C-c>', 'gc', { noremap = false, silent = true })
 
   -- Ctrl + S from every other program ever. Again, why tf do I have to hit Esc + : + w + Enter when I could just hit Ctrl + S? Ctrl + S isn't even used in insert mode, so fucking stupid.
   vim.api.nvim_set_keymap('i', '<C-s>', '<Esc><Cmd>w!<CR>a', { noremap = true, silent = true })
