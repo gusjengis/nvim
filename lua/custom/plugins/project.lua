@@ -10,7 +10,6 @@ return {
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',
       '~/Documents/Obsidian/*',
-      '~/Documents/Circuits/*',
       '~/AndroidStudioProjects/*',
     },
     picker = {
