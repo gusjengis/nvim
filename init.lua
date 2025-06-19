@@ -383,7 +383,7 @@ require('lazy').setup {
           ['<C-p>'] = cmp.mapping.select_prev_item(), -- Select the [p]revious item
           ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Scroll the documentation window [b]ack / [f]orward
           ['<C-f>'] = cmp.mapping.scroll_docs(4), -- Scroll the documentation window [b]ack / [f]orward
-          ['<Tab>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true },
           ['<C-Space>'] = cmp.mapping.complete {},
           ['<C-l>'] = cmp.mapping(function()
             if luasnip.expand_or_locally_jumpable() then

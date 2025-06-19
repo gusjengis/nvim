@@ -54,7 +54,6 @@ function M.MyKeymaps()
 
   -- hop
   vim.api.nvim_set_keymap('n', 'h', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', 'l', '<Cmd>HopLine<CR>', { noremap = true, silent = true })
 
   -- command palette
   vim.api.nvim_set_keymap('n', '<C-p>', '<Cmd>Telescope commands<CR>', { noremap = true, silent = true })
@@ -70,7 +69,7 @@ function M.MyKeymaps()
     { noremap = true, silent = true, desc = '[S]earch [P]rojects' }
   )
   -- colorscheme search
-  vim.api.nvim_set_keymap('n', '<leader>sc', '<Cmd>Telescope colorscheme<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
+  vim.api.nvim_set_keymap('n', '<leader>sc', '<Cmd>Telescope colorscheme<CR>', { noremap = true, silent = true, desc = '[S]earch [C]olorschemes' })
   -- toggle zen
   vim.api.nvim_set_keymap('n', '<leader>tz', '<Cmd>ZenMode<CR>', { noremap = true, silent = true, desc = '[T]oggle [Z]en Mode' })
   -- toggle diffview
