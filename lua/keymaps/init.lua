@@ -1,0 +1,5 @@
+require 'keymaps.git'
+require 'keymaps.oil'
+require 'keymaps.navigation'
+require 'keymaps.telescope'
+require 'keymaps.misc'

@@ -18,12 +18,8 @@ return {
   opts = {
     workspaces = {
       {
-        name = 'Airbnb-Arbitrage',
-        path = '~/Documents/Obsidian/Airbnb-Arbitrage/',
-      },
-      {
-        name = 'The-Vault/',
-        path = '~/Documents/Obsidian/The-Vault/',
+        name = 'Notes/',
+        path = '~/Documents/Obsidian/Notes/',
       },
     },
 
