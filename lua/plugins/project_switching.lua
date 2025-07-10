@@ -2,10 +2,13 @@ return {
   'coffebar/neovim-project',
   opts = {
     projects = { -- define project roots
+      '/etc/nixos/',
+      '/etc/nix-modules/',
       '~/AppData/Local/nvim',
       '~/.config/nvim',
-      '~/.dotfiles',
+      '~/.home-manager/',
       '~/Cloud Repositories/*',
+      '~/3DToe/3DToe',
       '~/Documents/Code/*',
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',

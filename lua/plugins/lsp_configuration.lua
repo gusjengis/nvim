@@ -86,6 +86,7 @@ return {
       'roslyn',
       'nil',
       'wgsl-analyzer',
+      'arduino-language-server',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
   end,
