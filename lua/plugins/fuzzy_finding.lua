@@ -56,6 +56,11 @@ return {
     -- [[ Configure Telescope ]]
     require('telescope').setup {
       defaults = {
+        layout_strategy = "horizontal",
+        layout_config = {
+          prompt_position = "bottom", -- put the prompt at the top
+        },
+        sorting_strategy = "ascending", -- puts results at the top
         mappings = {
           i = {
             ['<c-d>'] = DeleteBuffer,

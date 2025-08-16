@@ -86,8 +86,20 @@ return {
       'roslyn',
       'nil',
       'wgsl-analyzer',
-      'arduino-language-server',
+      'typstyle',
+      'tinymist',
     })
+    require("lspconfig").rust_analyzer.setup {
+      cmd = { "rust-analyzer" },  -- Uses the one in PATH
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = { allFeatures = true },
+          checkOnSave = {
+            command = "clippy"
+          },
+        },
+      },
+    }
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
   end,
 }
