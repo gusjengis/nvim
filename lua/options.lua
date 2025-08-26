@@ -44,3 +44,4 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'BufWinEnter', 'VimResized
 })
 vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none', fg = 'none' })
 vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none', fg = 'none' })
+

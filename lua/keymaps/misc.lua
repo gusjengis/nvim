@@ -6,3 +6,5 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.api.nvim_set_keymap('i', '<C-s>', '<Esc><Cmd>w!<CR>a', { noremap = true, silent = true, desc = 'Save file' })
 vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>w!<CR>', { noremap = true, silent = true, desc = 'Save file' })
 
+vim.api.nvim_set_keymap('n', '<leader>tt', '<Cmd>Twilight<CR>', { noremap = true, silent = true, desc = '[T]oggle [T]wilight' })
+vim.api.nvim_set_keymap('n', '<leader>tz', '<Cmd>ZenMode<CR>', { noremap = true, silent = true, desc = '[T]oggle [Z]en Mode' })

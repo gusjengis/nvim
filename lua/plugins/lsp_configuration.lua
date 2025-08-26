@@ -80,11 +80,12 @@ return {
     } }
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua',
+      -- 'stylua',
       'rust-analyzer',
-      'python-lsp-server',
-      'roslyn',
+      -- 'python-lsp-server',
+      -- 'roslyn',
       'nil',
+      -- 'hyprls',
       'wgsl-analyzer',
       'typstyle',
       'tinymist',
