@@ -80,8 +80,8 @@ return {
     } }
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      -- 'stylua',
-      'rust-analyzer',
+      'stylua',
+      -- 'rust-analyzer',
       -- 'python-lsp-server',
       -- 'roslyn',
       'nil',
@@ -90,17 +90,17 @@ return {
       'typstyle',
       'tinymist',
     })
-    require("lspconfig").rust_analyzer.setup {
-      cmd = { "rust-analyzer" },  -- Uses the one in PATH
-      settings = {
-        ["rust-analyzer"] = {
-          cargo = { allFeatures = true },
-          checkOnSave = {
-            command = "clippy"
-          },
-        },
-      },
-    }
+    -- require("lspconfig").rust_analyzer.setup {
+    --   cmd = { "rust-analyzer" },  -- Uses the one in PATH
+    --   settings = {
+    --     ["rust-analyzer"] = {
+    --       cargo = { allFeatures = true },
+    --       checkOnSave = {
+    --         command = "clippy"
+    --       },
+    --     },
+    --   },
+    -- }
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
   end,
 }

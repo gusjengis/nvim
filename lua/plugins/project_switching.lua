@@ -9,6 +9,7 @@ return {
       '~/.home-manager/',
       '~/Cloud Repositories/*',
       '~/3DToe/3DToe',
+      '~/Hundo/Hundo',
       '~/Documents/Code/*',
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',
