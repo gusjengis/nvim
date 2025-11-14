@@ -9,8 +9,8 @@ return {
 
       targets = {
         {
-          name = '3DT',
-          solution = '/home/gusjengis/Cloud Repositories/3DT/3DT.sln',
+          name = 'Hundo',
+          solution = '/home/gusjengis/wkspaces/Hundo/Hundo.sln',
         },
       },
       -- your configuration comes here; leave empty for default settings
