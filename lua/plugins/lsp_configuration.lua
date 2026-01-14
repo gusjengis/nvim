@@ -70,10 +70,22 @@ return {
     local servers = {
       lua_ls = {
         settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
+          Lua = { completion = { callSnippet = 'Replace' } },
+        },
+      },
+
+      rust_analyzer = {
+        settings = {
+          ['rust_analyzer'] = {
+            checkOnSave = true,
+            check = { command = 'clippy', extraArgs = { '--no-deps' } },
+            procMacro = { enable = true },
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
             },
+            imports = { granularity = { group = 'module' }, prefix = 'self' },
+            assist = { importGranularity = 'module' },
           },
         },
       },
@@ -86,7 +98,6 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua',
-      -- 'rust-analyzer',
       -- 'python-lsp-server',
       -- 'roslyn',
       'nil',
@@ -95,17 +106,23 @@ return {
       'typstyle',
       'tinymist',
     })
-    -- require("lspconfig").rust_analyzer.setup {
-    --   cmd = { "rust-analyzer" },  -- Uses the one in PATH
-    --   settings = {
-    --     ["rust-analyzer"] = {
-    --       cargo = { allFeatures = true },
-    --       checkOnSave = {
-    --         command = "clippy"
-    --       },
-    --     },
-    --   },
-    -- }
+    require('mason-lspconfig').setup {
+      handlers = {
+        -- Force rust-analyzer to use *your* config
+        rust_analyzer = function()
+          local cfg = servers.rust_analyzer or {}
+          cfg.capabilities = vim.tbl_deep_extend('force', {}, capabilities, cfg.capabilities or {})
+          require('lspconfig').rust_analyzer.setup(cfg)
+        end,
+
+        -- Generic handler for everything else
+        function(server_name)
+          local cfg = servers[server_name] or {}
+          cfg.capabilities = vim.tbl_deep_extend('force', {}, capabilities, cfg.capabilities or {})
+          require('lspconfig')[server_name].setup(cfg)
+        end,
+      },
+    }
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
   end,
 }

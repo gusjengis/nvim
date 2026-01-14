@@ -4,10 +4,10 @@ return {
     'folke/lazydev.nvim',
     ft = 'lua',
   },
-  -- Rust
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
-    lazy = false, -- This plugin is already lazy
-  },
+  -- -- Rust
+  -- {
+  --   'mrcjkb/rustaceanvim',
+  --   version = '^6', -- Recommended
+  --   lazy = false, -- This plugin is already lazy
+  -- },
 }
