@@ -32,6 +32,7 @@ return {
       lua = { 'stylua' },
       rust = { 'rustfmt' },
       nix = { 'nixfmt' },
+      cpp = { 'clang-format' },
     },
   },
 }

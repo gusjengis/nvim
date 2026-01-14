@@ -7,7 +7,7 @@ return {
       '~/AppData/Local/nvim',
       '~/.config/nvim',
       '~/.home-manager/',
-      '~/wkspaces/Hundo',
+      '~/wkspaces/*',
       '~/Documents/Code/*',
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',

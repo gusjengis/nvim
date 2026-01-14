@@ -105,6 +105,7 @@ return {
       'wgsl-analyzer',
       'typstyle',
       'tinymist',
+      'clang-format',
     })
     require('mason-lspconfig').setup {
       handlers = {
