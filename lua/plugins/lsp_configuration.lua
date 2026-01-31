@@ -106,6 +106,7 @@ return {
       'typstyle',
       'tinymist',
       'clang-format',
+      'rust-analyzer',
     })
     require('mason-lspconfig').setup {
       handlers = {
