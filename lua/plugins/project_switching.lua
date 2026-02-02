@@ -6,6 +6,7 @@ return {
       '/etc/nix-modules/',
       '~/AppData/Local/nvim',
       '~/.config/nvim',
+      '~/.config/secrets/',
       '~/.home-manager/',
       '~/wkspaces/*',
       '~/Documents/Code/*',
@@ -27,8 +28,6 @@ return {
     { 'nvim-lua/plenary.nvim' },
     -- optional picker
     { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-    -- optional picker
-    { 'ibhagwan/fzf-lua' },
     { 'Shatur/neovim-session-manager' },
   },
   lazy = false,

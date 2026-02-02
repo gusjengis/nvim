@@ -14,7 +14,7 @@ local function DeleteBuffer(prompt_bufnr)
   local buffer_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buffer_id), ':t')
   local cursor_row = action_state.get_current_picker(prompt_bufnr):get_selection_row()
 
-  if vim.api.nvim_buf_get_option(buffer_id, 'modified') then
+  if vim.bo[buffer_id].modified then
     vim.ui.select({ 'Yes', 'No' }, { prompt = 'File "' .. buffer_name .. '" has unsaved changes. Force delete? (y/n)' }, function(choice)
       if choice == 'Yes' then
         vim.cmd('bd! ' .. buffer_id)
