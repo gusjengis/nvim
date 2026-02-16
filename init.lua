@@ -1,4 +1,4 @@
 require 'options'
-require 'keymaps'
 require 'plugin_manager'
+require 'keymaps'
 require 'fix_statusline_colors'
