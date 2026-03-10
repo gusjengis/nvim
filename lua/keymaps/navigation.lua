@@ -11,8 +11,8 @@ vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.api.nvim_set_keymap('n', '<leader>sp', '<Cmd>NeovimProjectDiscover alphabetical_name<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
 
 -- hop, takes you where you're looking
-vim.api.nvim_set_keymap('n', 'H', '<Cmd>HopWordMW<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', 'H', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'h', '<Cmd>HopWordMW<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'h', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
 
 -- harpoon (file switching)
 vim.keymap.set('n', '<leader>ha', ':lua require("harpoon"):list():add()<CR>', { desc = '[A]dd current buffer to list' })
