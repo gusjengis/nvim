@@ -1,15 +1,15 @@
-return {
-  {
-    dir = vim.fn.expand '~/Documents/Code/Linked-Todos',
-    name = 'linked-todos',
-    config = function()
-      require('linked_todos').setup {
-        enable_render_commands = true,
-      }
+-- return {
+--   {
+--     dir = vim.fn.expand '~/Documents/Code/Linked-Todos',
+--     name = 'linked-todos',
+--     config = function()
+--       require('linked_todos').setup {
+--         enable_render_commands = true,
+--       }
 
-      vim.keymap.set('n', 'lt', function()
-        require('linked_todos').link_current_line()
-      end, { desc = '[L]ink [T]odo' })
-    end,
-  },
-}
+--       vim.keymap.set('n', 'lt', function()
+--         require('linked_todos').link_current_line()
+--       end, { desc = '[L]ink [T]odo' })
+--     end,
+--   },
+-- }
