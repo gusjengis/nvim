@@ -22,7 +22,7 @@ vim.o.scrolloff = 10 -- Set minimum number of screen lines to keep above and bel
 vim.o.swapfile = false
 vim.o.wrap = false
 vim.o.cmdheight = 0
-vim.o.laststatus = 3 -- Use global statusline
+vim.o.laststatus = 0 -- Hide the bottom statusline; lualine is used only as a winbar.
 vim.o.statusline = '' -- Clear statusline content
 vim.o.winborder = "rounded"
 vim.schedule(function() --sync clipboard with OS
@@ -37,11 +37,5 @@ vim.api.nvim_create_autocmd('TextYankPost', { -- Highlight when yanking (copying
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'BufWinEnter', 'VimResized', 'ColorScheme' }, {
-  callback = function()
-    vim.o.statusline = ' '
-  end,
-})
 vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none', fg = 'none' })
 vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none', fg = 'none' })
-
