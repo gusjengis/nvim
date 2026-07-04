@@ -10,6 +10,7 @@ return {
       '~/.home-manager/',
       '~/wkspaces/*',
       '~/Documents/Code/*',
+      '~/Wallpapers/',
       '~/Documents/Code/Mosaic/*',
       '~/Documents/Code/Plinth/*',
       '~/Documents/Obsidian/*',
