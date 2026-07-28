@@ -33,6 +33,7 @@ return {
       rust = { 'rustfmt' },
       nix = { 'nixfmt' },
       cpp = { 'clang-format' },
+      arduino = { 'clang-format' },
     },
   },
 }
