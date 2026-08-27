@@ -15,6 +15,7 @@ return {
       '~/Documents/Code/Plinth/*',
       '~/Documents/Obsidian/*',
       '~/AndroidStudioProjects/*',
+      '/mnt/office/company/Jobs/Jobs/*',
     },
     picker = {
       type = 'telescope',
