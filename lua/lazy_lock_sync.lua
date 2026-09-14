@@ -138,7 +138,7 @@ end
 function M.setup()
   vim.api.nvim_create_autocmd('User', {
     group = vim.api.nvim_create_augroup('lazy-lock-sync', { clear = true }),
-    pattern = { 'LazyInstall', 'LazyUpdate', 'LazySync', 'LazyClean', 'LazyRestore' },
+    pattern = 'LazyUpdate',
     callback = function()
       -- Lazy writes the lock right after the event fires.
       vim.defer_fn(M.sync, 500)
