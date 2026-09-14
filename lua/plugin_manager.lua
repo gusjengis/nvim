@@ -39,4 +39,7 @@ require('lazy').setup {
   },
 }
 
+-- A lockfile only keeps machines identical once it is pushed.
+require('lazy_lock_sync').setup()
+
 vim.cmd.colorscheme 'github_dark_default'

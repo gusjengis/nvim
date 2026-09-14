@@ -1,11 +1,88 @@
+-- Language servers are whatever the current environment provides.
+--
+-- No Mason: Mason downloads unpinned binaries into ~/.local/share/nvim, which
+-- is machine-local mutable state and the reason two machines running the same
+-- config behaved differently. Servers now come from Nix - a project's flake
+-- dev shell via direnv, or the small baseline set in the nvim Nix module - and
+-- a server is enabled only when its executable is actually on PATH.
+--
+-- Adding a language to a project therefore means adding it to that project's
+-- devShell, not installing anything here.
+
+-- lspconfig name -> extra settings merged over the upstream definition.
+-- Entries without settings still need to be listed: this table is the set of
+-- servers we are willing to start.
+local servers = {
+  arduino_language_server = {},
+  bashls = {},
+  clangd = {},
+  cssls = {},
+  gopls = {},
+  hyprls = {},
+  jsonls = {},
+  lua_ls = {
+    settings = {
+      Lua = { completion = { callSnippet = 'Replace' } },
+    },
+  },
+  marksman = {},
+  nil_ls = {},
+  pyright = {},
+  qmlls = {},
+  ruff = {},
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = true,
+        check = { command = 'clippy', extraArgs = { '--no-deps' } },
+        procMacro = { enable = true },
+        cargo = { allFeatures = true },
+        imports = { granularity = { group = 'module' }, prefix = 'self' },
+      },
+    },
+  },
+  taplo = {},
+  tinymist = {},
+  ts_ls = {},
+  wgsl_analyzer = {},
+  yamlls = {},
+}
+
+local enabled = {}
+
+--- Enable every configured server whose command exists in the current PATH.
+--- Runs again whenever direnv brings a project environment in, so a dev shell
+--- that appears after startup still gets its servers.
+local function enable_available()
+  local names = vim.tbl_keys(servers)
+  table.sort(names)
+
+  local started = {}
+  for _, name in ipairs(names) do
+    if not enabled[name] then
+      local config = vim.lsp.config[name]
+      local cmd = config and config.cmd
+      -- Some upstream configs resolve their command at attach time; those are
+      -- left to decide for themselves.
+      local executable = type(cmd) == 'table' and cmd[1] or nil
+
+      if executable == nil or vim.fn.executable(executable) == 1 then
+        enabled[name] = true
+        table.insert(started, name)
+      end
+    end
+  end
+
+  if #started > 0 then
+    vim.lsp.enable(started)
+  end
+end
+
 return {
-  'neovim/nvim-lspconfig', -- Main LSP Configuration
+  'neovim/nvim-lspconfig', -- ships the upstream lsp/<server>.lua definitions
   dependencies = {
-    'williamboman/mason.nvim', -- Automatically install LSPs and related tools to stdpath for Neovim
-    'williamboman/mason-lspconfig.nvim',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
-    'hrsh7th/cmp-nvim-lsp', -- Allows extra capabilities provided by nvim-cmp
+    'hrsh7th/cmp-nvim-lsp', -- extra capabilities provided by nvim-cmp
   },
 
   config = function()
@@ -28,7 +105,7 @@ return {
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
             buffer = event.buf,
@@ -51,7 +128,7 @@ return {
           })
         end
 
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           map('<leader>ti', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle [I]nlay Hints')
@@ -59,75 +136,26 @@ return {
       end,
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true,
     }
 
-    local servers = {
-      lua_ls = {
-        settings = {
-          Lua = { completion = { callSnippet = 'Replace' } },
-        },
-      },
+    vim.lsp.config('*', { capabilities = capabilities })
+    for name, config in pairs(servers) do
+      if next(config) ~= nil then
+        vim.lsp.config(name, config)
+      end
+    end
 
-      rust_analyzer = {
-        settings = {
-          ['rust_analyzer'] = {
-            checkOnSave = true,
-            check = { command = 'clippy', extraArgs = { '--no-deps' } },
-            procMacro = { enable = true },
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-            },
-            imports = { granularity = { group = 'module' }, prefix = 'self' },
-            assist = { importGranularity = 'module' },
-          },
-        },
-      },
-    }
+    -- Once now, and again after each direnv environment lands.
+    require('direnv').on_load(enable_available)
 
-    require('mason').setup {
-      registries = {
-        'github:mason-org/mason-registry',
-        -- 'github:Crashdummyy/mason-registry',
-      },
-    }
-    local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      'stylua',
-      -- 'python-lsp-server',
-      -- 'roslyn',
-      'nil',
-      'qmlls',
-      -- 'hyprls',
-      'wgsl-analyzer',
-      'typstyle',
-      'tinymist',
-      'clang-format',
-      'rust-analyzer',
-    })
-    require('mason-lspconfig').setup {
-      handlers = {
-        -- Force rust-analyzer to use *your* config
-        rust_analyzer = function()
-          local cfg = servers.rust_analyzer or {}
-          cfg.capabilities = vim.tbl_deep_extend('force', {}, capabilities, cfg.capabilities or {})
-          require('lspconfig').rust_analyzer.setup(cfg)
-        end,
-
-        -- Generic handler for everything else
-        function(server_name)
-          local cfg = servers[server_name] or {}
-          cfg.capabilities = vim.tbl_deep_extend('force', {}, capabilities, cfg.capabilities or {})
-          require('lspconfig')[server_name].setup(cfg)
-        end,
-      },
-    }
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+    vim.api.nvim_create_user_command('LspAvailable', function()
+      local names = vim.tbl_keys(enabled)
+      table.sort(names)
+      vim.notify('enabled language servers:\n  ' .. table.concat(names, '\n  '))
+    end, { desc = 'List language servers enabled from the current environment' })
   end,
 }
