@@ -59,10 +59,28 @@ end
 
 --- Bump the submodule pointer in the superproject, if there is one.
 local function sync_superproject()
+  -- Home Manager ships this, and it already knows the rules for moving the
+  -- pointer (only for commits that are on the remote, and in whichever
+  -- direction the two repositories disagree).
+  if vim.fn.executable 'nvim-config-sync' == 1 then
+    vim.system(
+      { 'nvim-config-sync' },
+      { text = true },
+      vim.schedule_wrap(function(result)
+        if result.code ~= 0 then
+          finish('config pointer not published\n' .. (result.stderr or ''), vim.log.levels.WARN)
+        else
+          finish 'lockfile published'
+        end
+      end)
+    )
+    return
+  end
+
   git({ 'rev-parse', '--show-superproject-working-tree' }, config_dir, function(result)
     local parent = vim.trim(result.stdout or '')
     if result.code ~= 0 or parent == '' then
-      finish()
+      finish 'lockfile published'
       return
     end
 
@@ -74,14 +92,18 @@ local function sync_superproject()
       end
 
       local relative = child:sub(#parent + 2)
-      git({ 'status', '--porcelain', '--', relative }, parent, function(status)
-        if vim.trim(status.stdout or '') == '' then
-          finish()
-          return
-        end
+      -- Compare the recorded pointer with the checked-out commit rather than
+      -- reading `git status`, which can be configured to ignore submodules.
+      git({ 'rev-parse', 'HEAD:' .. relative }, parent, function(pinned)
+        git({ 'rev-parse', 'HEAD' }, child, function(head)
+          if vim.trim(pinned.stdout or '') == vim.trim(head.stdout or '') then
+            finish()
+            return
+          end
 
-        commit_and_push(parent, relative, 'chore(nvim): bump config pointer', function()
-          finish 'lockfile and config pointer published'
+          commit_and_push(parent, relative, 'chore(nvim): bump config pointer', function()
+            finish 'lockfile and config pointer published'
+          end)
         end)
       end)
     end)
