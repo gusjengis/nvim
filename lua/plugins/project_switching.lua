@@ -1,37 +1,19 @@
 return {
-  'coffebar/neovim-project',
-  opts = {
-    projects = { -- define project roots
-      '/etc/nixos/',
-      '/etc/nix-modules/',
-      '~/AppData/Local/nvim',
-      '~/.config/nvim',
-      '~/.config/secrets/',
-      '~/.home-manager/',
-      '~/wkspaces/*',
-      '~/Documents/Code/*',
-      '~/Documents/Hyperlog/*',
-      '~/Wallpapers/',
-      '~/Documents/Code/Mosaic/*',
-      '~/Documents/Code/Plinth/*',
-      '~/Documents/Obsidian/*',
-      '~/AndroidStudioProjects/*',
-    },
-    picker = {
-      type = 'telescope',
-      preview = { enabled = true, git_status = true, git_fetch = true, show_hidden = true },
-    },
-  },
-  init = function()
-    -- enable saving the state of plugins in the session
-    vim.opt.sessionoptions:append 'globals' -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
-  end,
+  'Shatur/neovim-session-manager',
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
-    -- optional picker
     { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-    { 'Shatur/neovim-session-manager' },
   },
   lazy = false,
   priority = 100,
+  config = function()
+    -- Keep legacy sessions available for exact-directory migration only. Portable
+    -- JSON and recovery copies, rather than executable mksession files, own saves.
+    require('session_manager').setup {
+      sessions_dir = vim.fn.stdpath 'data' .. '/neovim-sessions',
+      autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
+      autosave_last_session = false,
+    }
+    require('context_persistence').setup()
+  end,
 }

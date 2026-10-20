@@ -7,9 +7,6 @@ vim.api.nvim_set_keymap('n', '<A-Down>', '<C-w>j', { noremap = true, silent = tr
 -- file explorer (file switching and manipulation)
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
--- project search
-vim.api.nvim_set_keymap('n', '<leader>sp', '<Cmd>NeovimProjectDiscover alphabetical_name<CR>', { noremap = true, silent = true, desc = '[S]earch [P]rojects' })
-
 -- hop, takes you where you're looking
 vim.api.nvim_set_keymap('n', 'h', '<Cmd>HopWordMW<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'h', '<Cmd>HopWord<CR>', { noremap = true, silent = true })
